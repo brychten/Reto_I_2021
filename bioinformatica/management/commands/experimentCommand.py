@@ -1,6 +1,7 @@
+import redis_lock
 from django.core.management.base import BaseCommand
 import subprocess
-import os
+import os, time
 
 
 class Command(BaseCommand):
@@ -10,6 +11,7 @@ class Command(BaseCommand):
         parser.add_argument('name')
         parser.add_argument('project_id')
         parser.add_argument('--experiment_id')
+        parser.add_argument('pk')
         parser.add_argument('--location', default='Montevideo')
 
     def get_absolute_path(self, experiment_id, project_id, filter_var=False):
@@ -36,6 +38,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # if options['command'] == 'agrupar':
+        pk = options['pk']
+        conn = redis_lock.StrictRedis(host='67.205.171.138', port=6379)
+        lock = redis_lock.Lock(conn, "exprimento" + str(pk))
         exp_id = options['experiment_id']
         project_id = options['project_id']
         print(options['command'].split('\r\n'))
@@ -60,3 +65,5 @@ class Command(BaseCommand):
                     path_sample = path.split('/FASTQs/')[0]
                     print("nextflow run %s -profile docker --reads %s  --db %s --tax %s mv results %s"
                           %(main_nf,path,db_16s,db_tax,path_sample))
+        time.sleep(5)
+        lock.release()
