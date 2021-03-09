@@ -577,6 +577,4 @@ fabric.properties
 #database
 *.sqlite3
 
-#mibrations
-
-/migrations/*
+#migrations
