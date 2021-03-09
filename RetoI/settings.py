@@ -25,7 +25,7 @@ SECRET_KEY = '$@rpv6ve$v$c#o)066+0(9f#^b#3i6(a02kg6)%ghn!==3o77+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*",]
 
 AUTH_USER_MODEL = 'CustomUsers.CustomUser'
 
@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'RetoI.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reto_db',
-        'USER': 'reto_user',
-        'PASSWORD': 'reto_pwd',
-        'HOST': '127.0.0.1',
-        'PORT': '55000',
+        'NAME': 'd3f55s94rv44gc',
+        'USER': 'rsotqjasqjzqhy',
+        'PASSWORD': '785a6a702fce5aa08154fca88d1f52d72e6bc1a67d18575b4bfea4af2cb4723b',
+        'HOST': 'ec2-18-207-95-219.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -130,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Logging settings to send python logs to graylog
 
