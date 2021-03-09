@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    env_file: config/db/db.conf
+    volumes:
+      - data_reto:/var/lib/postgresql/data
+    networks:
+      - main
+    ports:
+      - 55000:5432
+
+networks:
+  main:
+    driver: bridge
+
+volumes:
+  data_reto:
+  # backend:
+  #   build: 
+  #     context: .
+  #     dockerfile: backend/Dockerfile
+  #   env_file: config/backend/backend.conf
+  #   volumes:
+  #     - ./backend:/opt/backend
+  #   ports:
+  #     - 8000:8000
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     - main
+  #   depends_on:
+  #     - db
+
+
+
