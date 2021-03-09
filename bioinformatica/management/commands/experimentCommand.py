@@ -54,9 +54,9 @@ class Command(BaseCommand):
                 db_18s = os.environ.get("DB_18S")
                 db_tax = os.environ.get("DB_TAX")
 
-                list_path = self.get_absolute_path(exp_id,project_id,filter_var=True)
+                list_path = self.get_absolute_path(exp_id, project_id, filter_var=True)
 
                 for path in list_path:
                     path_sample = path.split('/FASTQs/')[0]
                     print("nextflow run %s -profile docker --reads %s  --db %s --tax %s mv results %s"
-                          %(main_nf,path,db_16s,db_tax,path_sample))
+                          % (main_nf, path, db_16s, db_tax, path_sample))

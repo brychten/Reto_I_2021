@@ -1,12 +1,10 @@
 from admin_confirm.admin import AdminConfirmMixin
-from django.contrib import admin
+from django.contrib import admin, messages
 from bioinformatica.models.experiment import Experiment
 from bioinformatica.admin.dinamicattributeAdmin import AttributeInline
 from bioinformatica.admin.sampleAdmin import SamplesInline
 from bioinformatica.models.logicaldelete import LogicalDeletedModelAdmin, LogicaLDeletedModelTabularInLine
 import redis_lock
-import time
-from django.contrib import messages
 from bioinformatica.admin.tasks import experiment_commands
 
 
@@ -26,7 +24,7 @@ class ExperimentAdmin(AdminConfirmMixin, LogicalDeletedModelAdmin):
         experiment_info = []
         for q in queryset:
             conn = redis_lock.StrictRedis(host='67.205.171.138', port=6379)
-            lock = redis_lock.Lock(conn, "exprimento" + str(q.pk))
+            lock = redis_lock.Lock(conn, "experimento" + str(q.pk))
             if lock.acquire(timeout=1):
 
                 experiment_info.append(q.executionCommands)
@@ -35,7 +33,6 @@ class ExperimentAdmin(AdminConfirmMixin, LogicalDeletedModelAdmin):
                 experiment_info.append(q.experiment_id)
 
                 print(f"Tomando experimento nro: {q.pk}")
-                time.sleep(20)
 
                 experiment_commands.delay(experiment_info)
 
