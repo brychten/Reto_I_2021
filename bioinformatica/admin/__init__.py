@@ -1,1 +1,1 @@
-from . import projectAdmin, ClientAdmin, sampleAdmin, fastQAdmin, fast5Admin, dinamicattributeAdmin, experimentAdmin
+from . import projectAdmin, ClientAdmin, sampleAdmin, fastQAdmin, fast5Admin, dinamicattributeAdmin, experimentAdmin, tasks
