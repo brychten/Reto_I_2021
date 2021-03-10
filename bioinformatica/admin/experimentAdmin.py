@@ -31,12 +31,12 @@ class ExperimentAdmin(AdminConfirmMixin, LogicalDeletedModelAdmin):
                 experiment_info.append(q.name)
                 experiment_info.append(q.project_id.project_id)
                 experiment_info.append(q.experiment_id)
+                experiment_info.append(q.pk)
 
                 print(f"Tomando experimento nro: {q.pk}")
 
                 experiment_commands.delay(experiment_info)
 
-                lock.release()
             else:
                 messages.add_message(obj, messages.INFO, 'Alguien ya está trabajando con este experimento')
 
